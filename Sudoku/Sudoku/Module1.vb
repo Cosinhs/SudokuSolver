@@ -193,26 +193,36 @@
         Private Function FindNextK(ByVal Q As Stack(Of List(Of Integer)), ByVal L As List(Of Integer), ByVal K As Integer, ByVal Index As Integer) As Integer
 
             Dim J As Integer = GetIndexOfNum(_Num(K), Index)
+            If J = -1 Then Return -2
+            SetNumPri(K, _V(J - 1))
+            AppendString("Stack Push " & Q.Count + 1, False)
+            AppendString("SetNum MayBe " & IndexToXY(K))
 
-            Do While J <> -1
-                If SetNumPri(K, _V(J - 1)) = True Then
-                    AppendString("Stack Push " & Q.Count + 1, False)
-                    AppendString("SetNum MayBe " & IndexToXY(K))
+            L.Add(Index)
+            L.Add(K)
+            Q.Push(L)
 
-                    L.Add(Index)
-                    L.Add(K)
-                    Q.Push(L)
+            K = FindMinCell()
 
-                    K = FindMinCell()
+            'Do While J <> -1
+            '    If SetNumPri(K, _V(J - 1)) = True Then
+            '        AppendString("Stack Push " & Q.Count + 1, False)
+            '        AppendString("SetNum MayBe " & IndexToXY(K))
 
-                    Exit Do
-                End If
+            '        L.Add(Index)
+            '        L.Add(K)
+            '        Q.Push(L)
 
-                RestoreNum(L)
-                Index += 1
-                J = GetIndexOfNum(_Num(K), Index)
-            Loop
-            If J = -1 Then K = -2
+            '        K = FindMinCell()
+
+            '        Exit Do
+            '    End If
+            '    RestoreNum(L)
+            '    Index += 1
+            '    J = GetIndexOfNum(_Num(K), Index)
+            'Loop
+            'If J = -1 Then K = -2
+
             Return K
         End Function
 
