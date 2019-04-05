@@ -208,7 +208,7 @@
                     Exit Do
                 End If
 
-                'RestoreNum(L)
+                RestoreNum(L)
                 Index += 1
                 J = GetIndexOfNum(_Num(K), Index)
             Loop
@@ -268,7 +268,17 @@
         Debug.Assert(tS.SetLine(8, 0, 0, 8, 5, 0, 0, 0, 1, 0))
         Debug.Assert(tS.SetLine(9, 0, 9, 0, 0, 0, 0, 4, 0, 0))
 
-        tS.Calculate()
+        Dim result As Integer() = tS.Calculate()
+
+        For I = 0 To 80
+            Console.Write(result(I))
+            If I Mod 9 = 8 Then
+                Console.Write(vbNewLine)
+            Else
+                Console.Write(" ")
+            End If
+        Next
+        Console.ReadKey()
 
         My.Computer.FileSystem.WriteAllText("1.txt", tS.CalculationString, False)
     End Sub
