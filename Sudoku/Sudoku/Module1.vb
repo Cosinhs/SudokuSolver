@@ -85,37 +85,125 @@
             Next
             Return SetNumPri(Row, Col, I)
         End Function
+        Private Function GetOnly() As Integer
+            Dim I As Integer, J As Integer, K As Integer
+            Dim P(8) As Integer
 
+            'row 
+            For I = 0 To 8
+                For K = 0 To 8
+                    P(K) = -1
+                Next
+
+                For J = 0 To 8
+                    If _Num(I * 9 + J) > 0 Then
+                        For K = 0 To 8
+                            If (_Num(I * 9 + J) And _V(K)) = _V(K) Then
+                                P(K) = IIf(P(K) = -1, I * 9 + J, -2)
+                            End If
+                        Next
+                    End If
+                Next
+
+                For K = 0 To 8
+                    If P(K) >= 0 Then Return P(K) * 10 + K
+                Next
+            Next
+
+            'col 
+            For I = 0 To 8
+                For K = 0 To 8
+                    P(K) = -1
+                Next
+
+                For J = 0 To 8
+                    If _Num(J * 9 + I) > 0 Then
+                        For K = 0 To 8
+                            If (_Num(J * 9 + I) And _V(K)) = _V(K) Then
+                                P(K) = IIf(P(K) = -1, J * 9 + I, -2)
+                            End If
+                        Next
+                    End If
+                Next
+
+                For K = 0 To 8
+                    If P(K) >= 0 Then Return P(K) * 10 + K
+                Next
+            Next
+
+            'mat 
+            Dim S As Integer
+            For I = 0 To 8
+                For K = 0 To 8
+                    P(K) = -1
+                Next
+
+                For J = 0 To 8
+                    S = (Int(I / 3) * 3 + Int(J / 3)) * 9 + (I Mod 3) * 3 + (J Mod 3)
+
+                    If _Num(S) > 0 Then
+                        For K = 0 To 8
+                            If (_Num(S) And _V(K)) = _V(K) Then
+                                P(K) = IIf(P(K) = -1, S, -2)
+                            End If
+                        Next
+                    End If
+                Next
+
+                For K = 0 To 8
+                    If P(K) >= 0 Then Return P(K) * 10 + K
+                Next
+            Next
+
+            Return -1
+        End Function
         Private Function FindMinCell() As Integer
-            Dim I, C As Integer
+            Dim I As Integer, C As Integer
             Dim tP As Integer = -1, tMin As Integer = 20
 
             I = 0
 
+            Dim S As Integer
+
             Do
-                If _Num(I) > 0 Then
-                    C = Get1Count(_Num(I))
-                    If C = 1 Then
-                        If SetNumPri(I, _Num(I)) = False Then Return -2
+                Do
+                    If _Num(I) > 0 Then
+                        C = Get1Count(_Num(I))
+                        If C = 1 Then
+                            If SetNumPri(I, _Num(I)) = False Then Return -2
 
-                        AppendString("SetNum " & IndexToXY(I))
+                            If I = tP Then
+                                tP = -1
+                                tMin = 20
+                            End If
 
-                        If I = tP Then
-                            tP = -1
-                            tMin = 20
-                        End If
-
-                        I = -1
-                    Else
-                        If C < tMin Then
-                            tP = I
-                            tMin = C
+                            I = -1
+                        Else
+                            If C < tMin Then
+                                tP = I
+                                tMin = C
+                            End If
                         End If
                     End If
-                End If
-                I += 1
-            Loop Until I > 80
+                    I += 1
+                Loop Until I > 80
 
+                If tP = -1 Then Return -1
+
+                S = GetOnly()
+
+                If S > 0 Then
+                    Dim S2 As Integer = Int(S / 10)
+                    Dim S3 As Integer = S Mod 10
+
+                    If SetNumPri(S2, _V(S3)) = False Then Return -2
+
+                    I = 0
+                    tP = -1
+                    tMin = 20
+                End If
+
+            Loop Until I > 80
             Return tP
         End Function
 
@@ -194,6 +282,7 @@
 
             Dim J As Integer = GetIndexOfNum(_Num(K), Index)
             If J = -1 Then Return -2
+
             SetNumPri(K, _V(J - 1))
             AppendString("Stack Push " & Q.Count + 1, False)
             AppendString("SetNum MayBe " & IndexToXY(K))
