@@ -85,8 +85,10 @@
             Next
             Return SetNumPri(Row, Col, I)
         End Function
+
+        'Enhancement, see https://www.cnblogs.com/grenet/p/3212514.html
         Private Function GetOnly() As Integer
-            Dim I As Integer, J As Integer, K As Integer
+            Dim I, J, K As Integer
             Dim P(8) As Integer
 
             'row 
@@ -157,6 +159,7 @@
 
             Return -1
         End Function
+
         Private Function FindMinCell() As Integer
             Dim I As Integer, C As Integer
             Dim tP As Integer = -1, tMin As Integer = 20
@@ -367,7 +370,10 @@
         Debug.Assert(tS.SetLine(8, 0, 0, 8, 5, 0, 0, 0, 1, 0))
         Debug.Assert(tS.SetLine(9, 0, 9, 0, 0, 0, 0, 4, 0, 0))
 
+        Dim s = (DateTime.Now - New DateTime(1970, 1, 1)).TotalMilliseconds
         Dim result As Integer() = tS.Calculate()
+        s = (DateTime.Now - New DateTime(1970, 1, 1)).TotalMilliseconds - s
+        Console.WriteLine(s)
 
         For I = 0 To 80
             Console.Write(result(I))
