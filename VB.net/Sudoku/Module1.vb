@@ -40,18 +40,18 @@
             Return SetNumPri(Row - 1, Col - 1, Num - 1)
         End Function
 
-        Public Function SetLine(ByVal Row As Integer, ByVal ParamArray Num() As Integer) As Boolean
-            If Num.Length = 0 Then Return True
+        Public Sub SetLine(ByVal Row As Integer, ByVal ParamArray Num() As Integer)
+            If Num.Length = 0 Then Exit Sub
 
             Dim I As Integer
 
             For I = 0 To IIf(Num.Length - 1 > 8, 8, Num.Length - 1)
-                If Num(I) > 0 AndAlso SetNumPri(Row - 1, I, Num(I) - 1) = False Then Return False
+                If Num(I) > 0 AndAlso SetNumPri(Row - 1, I, Num(I) - 1) = False Then
+                    Throw New Exception("SetLine Error At: " & Row & ", " & I + 1)
+                End If
             Next
 
-            Return True
-
-        End Function
+        End Sub
 
         Private Function SetNumPri(ByVal Row As Integer, ByVal Col As Integer, ByVal Num As Integer) As Boolean
             If (_V(Num) And _Num(Row * 9 + Col)) = 0 Then Return False
@@ -359,17 +359,23 @@
     Sub Main()
         Dim tS As New Sudoku
 
-        tS.SetLine(1, 8, 0, 0, 0, 0, 0, 0, 0, 0)
-        tS.SetLine(2, 0, 0, 3, 6, 0, 0, 0, 0, 0)
-        tS.SetLine(3, 0, 7, 0, 0, 9, 0, 2, 0, 0)
-        tS.SetLine(4, 0, 5, 0, 0, 0, 7, 0, 0, 0)
-        tS.SetLine(5, 0, 0, 0, 0, 4, 5, 7, 0, 0)
-        tS.SetLine(6, 0, 0, 0, 1, 0, 0, 0, 3, 0)
-        tS.SetLine(7, 0, 0, 1, 0, 0, 0, 0, 6, 8)
-        tS.SetLine(8, 0, 0, 8, 5, 0, 0, 0, 1, 0)
-        tS.SetLine(9, 0, 9, 0, 0, 0, 0, 4, 0, 0)
+        Try
+            tS.SetLine(1, 8, 0, 0, 0, 0, 0, 0, 0, 0)
+            tS.SetLine(2, 0, 0, 3, 6, 0, 0, 0, 0, 0)
+            tS.SetLine(3, 0, 7, 0, 0, 9, 0, 2, 0, 0)
+            tS.SetLine(4, 0, 5, 0, 0, 0, 7, 0, 0, 0)
+            tS.SetLine(5, 0, 0, 0, 0, 4, 5, 7, 0, 0)
+            tS.SetLine(6, 0, 0, 0, 1, 0, 0, 0, 3, 0)
+            tS.SetLine(7, 0, 0, 1, 0, 0, 0, 0, 6, 8)
+            tS.SetLine(8, 0, 0, 8, 5, 0, 0, 0, 1, 0)
+            tS.SetLine(9, 0, 9, 0, 0, 0, 0, 4, 0, 0)
+        Catch ex As Exception
+            Console.WriteLine(ex)
+            Console.ReadKey()
+            Exit Sub
+        End Try
 
-        Dim s = (DateTime.Now - New DateTime(1970, 1, 1)).TotalMilliseconds
+        Dim s As Double = (DateTime.Now - New DateTime(1970, 1, 1)).TotalMilliseconds
 
         Dim result As Integer() = tS.Calculate()
 
