@@ -1,0 +1,11 @@
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\bin\Release\Sudoku.exe.config
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\bin\Release\Sudoku.exe
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\bin\Release\Sudoku.pdb
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\bin\Release\Sudoku.xml
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\obj\Release\Sudoku.vbprojAssemblyReference.cache
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\obj\Release\Sudoku.Resources.resources
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\obj\Release\Sudoku.vbproj.GenerateResource.cache
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\obj\Release\Sudoku.vbproj.CoreCompileInputs.cache
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\obj\Release\Sudoku.exe
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\obj\Release\Sudoku.xml
+C:\Users\何树超\Documents\GitHub\SudokuSolver\Sudoku\Sudoku\obj\Release\Sudoku.pdb
