@@ -1,3 +1,4 @@
+*.txt
 C++/.vs
 C++/x64
 C++/Sudoku/x64
